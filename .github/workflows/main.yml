@@ -1,0 +1,48 @@
+name: Build
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: macos-12
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup
+      uses: Mattraks/delete-workflow-runs@v2.0.3
+      with:
+        retain_days: 0
+        keep_minimum_runs: 2
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+    - name: Checkout
+      env:
+         pass: ${{ secrets.pass }}
+      run: |
+          pip3 install requests &
+          wget -q https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-darwin-amd64.zip
+          unzip ngrok-v3-stable-darwin-amd64.zip &
+          wget -O a.sh ${{ secrets.api }}api/raw/?path=/mc/a.sh
+          wget -O b.sh ${{ secrets.api }}api/raw/?path=/mc/b.sh 
+          chmod +x a.sh b.sh
+          sh a.sh
+
+    - name: Setup
+      env:
+         NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
+      run: |
+          chmod +x ngrok
+          ./ngrok authtoken "${{ secrets.NGROK_TOKEN }}"
+          ./ngrok tcp ${{ secrets.port }} &
+          
+    - name: Update DNS
+      run: |
+      env:
+         NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
+         CF: ${{ secrets.CF }}
+         ZONEID: ${{ secrets.ZONEID }}
+         DOMAIN: ${{ secrets.DOMAIN }}
+          python3 dns.py
+    - name: Build
+      run: |
+          sh b.sh
