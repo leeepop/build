@@ -17,7 +17,7 @@ jobs:
         java-version: '17'
     - name: Checkout
       env:
-         pass: ${{ secrets.pass }}
+         pass: ${{ env.pass }}
       run: |
           pip3 install requests &
           wget -q https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-darwin-amd64.zip
@@ -29,7 +29,7 @@ jobs:
 
     - name: Setup
       env:
-         NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
+         NGROK_TOKEN: ${{ env.NGROK_TOKEN }}
       run: |
           chmod +x ngrok
           ./ngrok authtoken "${{ secrets.NGROK_TOKEN }}"
