@@ -44,6 +44,7 @@ jobs:
          CF_API: ${{ env.CF_API }}
          ZONEID: ${{ env.ZONE }}
          DOMAIN: ${{ env.DOMAIN }}
+         SERVICE: ${{ env.SERVICE }}
           python3 dns.py
     - name: Build
       run: |
