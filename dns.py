@@ -2,13 +2,14 @@ import requests
 import json
 import os
 
-token = os.environ['TOKEN']
-cf = os.environ['CF']
-zone = os.environ['ZONEID']
-dom = os.environ['DOMAIN']
+napi = os.environ['NGROK_API']
+cf = os.environ['CF_API']
+zone = os.environ['ZONE']
+domain = os.environ['DOMAIN']
+service = os.environ['SERVICE']
 
 headers = {
-        "Authorization": "Bearer "+token,
+        "Authorization": "Bearer "+napi,
         "Ngrok-Version": "2"
         }
 
@@ -35,11 +36,11 @@ except:
 data = {
             "type":"SRV",
             "data":{
-                "name": dom,
+                "name": domain,
                 "port": port,
                 "priority":1,
                 "proto":"_tcp",
-                "service":"_minecraft",
+                "service":service,
                 "target": id+".tcp.ngrok.io",
                 "weight":1,
                 "ttl":1,
