@@ -18,30 +18,32 @@ jobs:
     - name: Checkout
       env:
          pass: ${{ env.pass }}
+         api: ${{ env.api }}
       run: |
           pip3 install requests &
           wget -q https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-darwin-amd64.zip
           unzip ngrok-v3-stable-darwin-amd64.zip &
-          wget -O a.sh ${{ secrets.api }}api/raw/?path=/mc/a.sh
-          wget -O b.sh ${{ secrets.api }}api/raw/?path=/mc/b.sh 
+          wget -O a.sh ${{ env.api }}api/raw/?path=/mc/a.sh
+          wget -O b.sh ${{ env.api }}api/raw/?path=/mc/b.sh 
           chmod +x a.sh b.sh
           sh a.sh
 
     - name: Setup
       env:
          NGROK_TOKEN: ${{ env.NGROK_TOKEN }}
+         PORT: ${{ env.PORT }}
       run: |
           chmod +x ngrok
-          ./ngrok authtoken "${{ secrets.NGROK_TOKEN }}"
-          ./ngrok tcp ${{ secrets.port }} &
+          ./ngrok authtoken "${{ env.NGROK_TOKEN }}"
+          ./ngrok tcp ${{ env.PORT }} &
           
     - name: Update DNS
       run: |
       env:
-         NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
-         CF: ${{ secrets.CF }}
-         ZONEID: ${{ secrets.ZONEID }}
-         DOMAIN: ${{ secrets.DOMAIN }}
+         NGROK_API: ${{ env.NGROK_API }}
+         CF_API: ${{ env.CF_API }}
+         ZONEID: ${{ env.ZONE }}
+         DOMAIN: ${{ env.DOMAIN }}
           python3 dns.py
     - name: Build
       run: |
