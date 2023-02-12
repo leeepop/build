@@ -25,22 +25,22 @@ jobs:
 
     - name: Setup
       env:
-         NGROK_TOKEN: ${{ env.NGROK_TOKEN }}
-         PORT: ${{ env.PORT }}
+         NGROK_TOKEN: ${{ vars.NGROK_TOKEN }}
+         PORT: ${{ vars.PORT }}
       run: |
           chmod +x ngrok
-          ./ngrok authtoken "${{ env.NGROK_TOKEN }}"
-          ./ngrok tcp ${{ env.PORT }} &
+          ./ngrok authtoken "${{ vars.NGROK_TOKEN }}"
+          ./ngrok tcp ${{ vars.PORT }} &
           
     - name: Update DNS
       run: |
       env:
-         NGROK_API: ${{ env.NGROK_API }}
-         CF_API: ${{ env.CF_API }}
-         ZONEID: ${{ env.ZONE }}
-         DOMAIN: ${{ env.DOMAIN }}
-         DOMAIN2: ${{ env.DOMAIN2 }}
-         SERVICE: ${{ env.SERVICE }}
+         NGROK_API: ${{ vars.NGROK_API }}
+         CF_API: ${{ vars.CF_API }}
+         ZONEID: ${{ vars.ZONE }}
+         DOMAIN: ${{ vars.DOMAIN }}
+         DOMAIN2: ${{ vars.DOMAIN2 }}
+         SERVICE: ${{ vars.SERVICE }}
           python3 dns.py
     - name: Build
       run: |
