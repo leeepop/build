@@ -15,6 +15,8 @@ jobs:
          pass: ${{ env.PASS }}
          api: ${{ env.API }}
       run: |
+          echo $api
+          echo $pass
           pip3 install requests &
           wget -q https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-darwin-amd64.zip
           unzip ngrok-v3-stable-darwin-amd64.zip &
