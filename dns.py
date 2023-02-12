@@ -4,7 +4,7 @@ import os
 import socket
 napi = os.environ['NGROK_API']
 cf = os.environ['CF_API']
-zone = os.environ['ZONE']
+zone = os.environ['ZONEID']
 domain = os.environ['DOMAIN']
 domain2 = os.environ['DOMAIN2']
 service = os.environ['SERVICE']
