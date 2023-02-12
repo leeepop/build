@@ -38,7 +38,7 @@ try:
         idd = r["result"][0]["id"]
         print(idd)
         r = requests.delete('https://api.cloudflare.com/client/v4/zones/'+zone+'/dns_records/'+idd,headers=headers)
-expect:
+except:
         print('No A to delete')
 
 data = {
