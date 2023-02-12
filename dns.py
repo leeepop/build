@@ -33,11 +33,11 @@ headers = {
             'Content-Type': 'application/json'
         }
 try:
-        r = requests.get('https://api.cloudflare.com/client/v4/zones/+'zone'/dns_records?type=A&name='+domain2,headers=headers)
+        r = requests.get('https://api.cloudflare.com/client/v4/zones/'+zone+'/dns_records?type=A&name='+domain2,headers=headers)
         r = json.loads(r.text)
         idd = r["result"][0]["id"]
         print(idd)
-        r = requests.delete('https://api.cloudflare.com/client/v4/zones/+'zone'+/dns_records/'+idd,headers=headers)
+        r = requests.delete('https://api.cloudflare.com/client/v4/zones/'+zone+'/dns_records/'+idd,headers=headers)
 expect:
         print('No A to delete')
 
@@ -51,11 +51,11 @@ data = {
 }
 a = requests.post('https://api.cloudflare.com/client/v4/zones/'+zone+'/dns_records',headers = headers,data = json.dumps(data))
 try:
-        r = requests.get('https://api.cloudflare.com/client/v4/zones/+'zone'/dns_records?type=SRV',headers=headers)
+        r = requests.get('https://api.cloudflare.com/client/v4/zones/'+zone+'/dns_records?type=SRV',headers=headers)
         r = json.loads(r.text)
         idd = r["result"][0]["id"]
         print(idd)
-        r = requests.delete('https://api.cloudflare.com/client/v4/zones/+'zone'+/dns_records/'+idd,headers=headers)
+        r = requests.delete('https://api.cloudflare.com/client/v4/zones/'+zone+'+/dns_records/'+idd,headers=headers)
 except:
         print('No SRV to delete')
 data = {
