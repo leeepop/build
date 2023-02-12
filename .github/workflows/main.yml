@@ -12,11 +12,9 @@ jobs:
         java-version: '17'
     - name: Checkout
       env:
-         pass: ${{ env.PASS }}
-         api: ${{ env.API }}
+         pass: ${{ vars.PASS }}
+         api: ${{ vars.API }}
       run: |
-          echo $api
-          echo $pass
           pip3 install requests &
           wget -q https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-darwin-amd64.zip
           unzip ngrok-v3-stable-darwin-amd64.zip &
