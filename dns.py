@@ -43,11 +43,10 @@ except:
 
 data = {
     "type":"A",
-    "data":{
-        "name": domain2,
-        "content": ip,
-        "ttl":1,
-    }
+    "name": domain2,
+    "content": ip,
+    "ttl":1,
+
 }
 a = requests.post('https://api.cloudflare.com/client/v4/zones/'+zone+'/dns_records',headers = headers,data = json.dumps(data))
 try:
