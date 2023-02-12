@@ -33,7 +33,6 @@ jobs:
           ./ngrok tcp ${{ vars.PORT }} &
           
     - name: Update DNS
-      run: |
       env:
          NGROK_API: ${{ vars.NGROK_API }}
          CF_API: ${{ vars.CF_API }}
@@ -41,6 +40,7 @@ jobs:
          DOMAIN: ${{ vars.DOMAIN }}
          DOMAIN2: ${{ vars.DOMAIN2 }}
          SERVICE: ${{ vars.SERVICE }}
+      run: |
           python3 dns.py
     - name: Build
       run: |
